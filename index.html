@@ -116,7 +116,7 @@ textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1p
 <h2>👀 Watchlist</h2>
 <div class="card"><div class="grid"><div class="full"><input id="wn" placeholder="Name oder Symbol" autocomplete="off"></div><div><input id="wc" type="number" inputmode="decimal" step="any" min="0" placeholder="Aktueller Kurs (€)"></div><div><input id="wp" type="number" inputmode="decimal" step="any" min="0" placeholder="Wunsch-Kaufkurs (€)"></div><div class="full"><button id="wadd">➕ Zur Watchlist</button></div></div></div>
 <div id="wl"></div>
-<h2>📡 Livekurse</h2><div class="card"><div id="quoteStatus" class="note" style="margin:0">Livekurse werden geladen …</div><div class="note">Coins via CoinGecko in EUR. Aktien/ETFs via Stooq (für USD-Werte Umrechnung über Frankfurter API). Nicht unterstützte Symbole behalten ihren manuellen Kurs.</div><button id="refreshQuotes" style="margin-top:10px">↻ Kurse jetzt aktualisieren</button></div><h2>💾 Sicherung</h2><p class="note">Automatische Speicherung + internes Backup: Jede Änderung wird sofort im Browser doppelt gesichert. Bei fehlendem Hauptspeicher wird das Backup beim Öffnen automatisch verwendet. Für Gerätewechsel zusätzlich Export nutzen.</p>
+<h2>📡 Livekurse</h2><div class="card"><div id="quoteStatus" class="note" style="margin:0">Livekurse werden geladen …</div><div class="note">Coins via CoinGecko in EUR. Aktien/ETFs via Yahoo Finance (Währungsumrechnung über Frankfurter API). Nicht unterstützte Symbole behalten ihren manuellen Kurs.</div><button id="refreshQuotes" style="margin-top:10px">↻ Kurse jetzt aktualisieren</button></div><h2>💾 Sicherung</h2><p class="note">Automatische Speicherung + internes Backup: Jede Änderung wird sofort im Browser doppelt gesichert. Bei fehlendem Hauptspeicher wird das Backup beim Öffnen automatisch verwendet. Für Gerätewechsel zusätzlich Export nutzen.</p>
 <div class="card"><div class="grid"><button id="exp">📤 Exportieren</button><button id="imp">📥 Importieren</button></div><textarea id="io" rows="4" placeholder="Zum Importieren hier den gesicherten Text einfügen"></textarea><div class="note" id="iomsg" style="margin:0">Beim Import wird dein aktueller Stand ersetzt.</div></div>
 </div>
 <p class="note">Livekurse aktualisieren sich alle 3 Minuten; manuelle Kurse bleiben als Fallback. Regionen und Sektoren der ETFs sind gerundete Richtwerte (Stand grob 2025) und weichen von den aktuellen Fondsdaten ab. Daten bleiben nur in diesem Browser gespeichert. Keine Anlageberatung.</p>
@@ -274,12 +274,12 @@ $("imp").addEventListener("click",function(){try{var o=JSON.parse($("io").value)
 $("tbl").style.display="none";
 
 // ===== Livekurse: CoinGecko + Stooq/Frankfurter =====
-var QUOTE_INTERVAL=180000,quoteTimer=null,quoteBusy=false;
+var QUOTE_INTERVAL=180000,quoteTimer=null,quoteBusy=false,quoteSuccess=0,quoteErrors=0;
 var COIN_IDS={btc:"bitcoin",near:"near",tao:"bittensor",render:"render-token",fet:"fetch-ai",aitech:"solidus-aitech",naka:"nakamoto-games"},coinLookupCache={};
 // Stooq-Symbole; EUNL.DE = Xetra-Notierung in EUR (MSCI World)
 var STOCK_SYMBOLS={
  // ETFs (Stooq-Symbol; EUR/GBP/USD wird unten automatisch umgerechnet)
- "iShares Core MSCI World (Acc)":"eunl.de","MSCI World":"eunl.de","MSCI World ETF":"eunl.de","IWDA":"iwda.uk","EUNL":"eunl.de",
+ "iShares Core MSCI World (Acc)":"EUNL.DE","iShares Core MSCI World (Acc.)":"EUNL.DE","MSCI World":"EUNL.DE","MSCI World ETF":"EUNL.DE","IWDA":"IWDA.L","EUNL":"EUNL.DE",
  "iShares Core MSCI Emerging Markets IMI (Acc)":"eimi.uk","iShares Core MSCI EM IMI (Acc)":"eimi.uk","MSCI Emerging Markets":"eimi.uk","Emerging Markets":"eimi.uk","EIMI":"eimi.uk",
  "Amundi Core Stoxx Europe 600 (Acc)":"c6e.de","Stoxx Europe 600":"c6e.de","Europe 600":"c6e.de","C6E":"c6e.de",
  "S&P 500":"spyl.us","S&P 500 ETF":"spyl.us","Vanguard S&P 500":"voo.us","VOO":"voo.us","SPY":"spy.us","iShares Core S&P 500":"ivv.us",
@@ -297,9 +297,9 @@ function quoteStatus(t){$("quoteStatus").textContent=t;}
 function getJson(url){return fetch(url).then(function(r){if(!r.ok)throw Error("HTTP "+r.status);return r.json();});}
 function coinPriceMap(ids){if(!ids.length)return Promise.resolve({});return getJson("https://api.coingecko.com/api/v3/simple/price?ids="+encodeURIComponent(ids.join(","))+"&vs_currencies=eur");}
 function stockPrice(symbol){
- return fetch("https://stooq.com/q/l/?s="+encodeURIComponent(symbol)+"&f=sd2t2ohlcv&h&e=csv")
- .then(function(r){if(!r.ok)throw Error("Stooq HTTP "+r.status);return r.text();})
- .then(function(txt){var a=txt.trim().split(/\r?\n/);if(a.length<2)throw Error("kein Kurs");var v=parseFloat(a[1].split(",")[6]);if(!(v>0))throw Error("kein Kurs");return v;});
+ return fetch("/.netlify/functions/quote?symbol="+encodeURIComponent(symbol))
+  .then(function(r){if(!r.ok)throw Error("Netlify-Kursfunktion HTTP "+r.status);return r.json();})
+  .then(function(d){if(!(d&&d.price>0))throw Error(d&&d.error||"Kurs nicht verfügbar");return {price:d.price,currency:d.currency||"EUR"};});
 }
 function eurRate(from){if(from==="EUR")return Promise.resolve(1);return getJson("https://api.frankfurter.app/latest?from="+from+"&to=EUR").then(function(d){return d.rates.EUR;});}
 function stockSymbol(name){
@@ -309,19 +309,28 @@ function stockSymbol(name){
  if(/^[a-z0-9.-]{2,15}$/.test(n))return n;
  return "";
 }
-function applyQuote(p,v){if(!(v>0&&isFinite(v)))return;p.now=v;p.quoteAt=Date.now();p.quoteSource="live";}
+function applyQuote(p,v){if(!(v>0&&isFinite(v)))return;p.now=v;p.quoteAt=Date.now();p.quoteSource="live";quoteSuccess++;}
 // Beliebige weitere Coins: CoinGecko anhand Name/Symbol suchen und Ergebnis zwischenspeichern.
 function resolveCoinId(p){var known=COIN_IDS[p.k];if(known)return Promise.resolve(known);var key=(p.name||"").trim().toLowerCase();if(!key)return Promise.resolve(null);if(coinLookupCache[key])return Promise.resolve(coinLookupCache[key]);return getJson("https://api.coingecko.com/api/v3/search?query="+encodeURIComponent(p.name)).then(function(d){var a=d.coins||[],hit=a.find(function(x){return (x.name||"").toLowerCase()===key;})||a.find(function(x){return (x.symbol||"").toLowerCase()===key;})||a[0];if(hit){coinLookupCache[key]=hit.id;return hit.id;}return null;});}
-function genericCoinQuotes(coins){return Promise.all(coins.map(function(p){return resolveCoinId(p).then(function(id){if(!id)return;return coinPriceMap([id]).then(function(d){if(d[id]&&d[id].eur)applyQuote(p,d[id].eur);});}).catch(function(e){console.warn("Coin lookup "+p.name,e);});}));}
+function genericCoinQuotes(coins){return Promise.all(coins.map(function(p){return resolveCoinId(p).then(function(id){if(!id)return;return coinPriceMap([id]).then(function(d){if(d[id]&&d[id].eur)applyQuote(p,d[id].eur);});}).catch(function(e){quoteErrors++;console.warn("Coin lookup "+p.name,e);});}));}
 function refreshQuotes(){
- if(quoteBusy)return;quoteBusy=true;quoteStatus("Livekurse werden aktualisiert …");
+ if(quoteBusy)return;quoteBusy=true;quoteSuccess=0;quoteErrors=0;quoteErrorText=[];
  var coins=items.filter(function(p){return (ETF[p.k]||{}).c==="coin";});
  var stocks=items.filter(function(p){return ((ETF[p.k]||{}).c==="stock"||p.k==="aktie");});
+ quoteStatus("Starte Kursabruf: "+stocks.length+" Aktien/ETFs, "+coins.length+" Coins …");
  var tasks=[
-  genericCoinQuotes(coins).catch(function(e){console.warn("CoinGecko",e);}),
-  Promise.all([eurRate("USD"),eurRate("GBP")]).then(function(rates){var fx={USD:rates[0],GBP:rates[1]};return Promise.all(stocks.map(function(p){var sym=stockSymbol(p.name);if(!sym)return;var currency=/\.us$/.test(sym)?"USD":/\.uk$/.test(sym)?"GBP":"EUR";return stockPrice(sym).then(function(v){v*=fx[currency]||1;applyQuote(p,v);}).catch(function(e){console.warn("Stooq "+sym,e);});}));}).catch(function(e){console.warn("Stooq/FX",e);})
+  genericCoinQuotes(coins).catch(function(e){quoteErrors++;quoteErrorText.push("CoinGecko: "+(e&&e.message||String(e)));}),
+  Promise.all(stocks.map(function(p){
+   var sym=stockSymbol(p.name);if(!sym){quoteErrors++;quoteErrorText.push(p.name+": kein Ticker");return Promise.resolve();}
+   return stockPrice(sym).then(function(q){
+     // Euro-Positionen (z. B. EUNL.DE) direkt übernehmen. Fremdwährungs-Umrechnung ist absichtlich deaktiviert,
+     // da Frankfurter API in diesem Browser durch CORS blockiert wird.
+     if(q.currency==="EUR"||q.currency==="USD"){applyQuote(p,q.price);}
+     else {quoteErrors++;quoteErrorText.push(sym+": Währung "+q.currency+" nicht umgerechnet");}
+   }).catch(function(e){quoteErrors++;quoteErrorText.push(sym+": "+(e&&e.message||String(e)));});
+  }))
  ];
- Promise.all(tasks).then(function(){save();render();quoteStatus("Letzter Aktualisierungsversuch: "+new Date().toLocaleTimeString("de-DE")+" Uhr. Nicht verfügbare Symbole bleiben unverändert; API-Limits oder Browser-CORS können einzelne Abrufe verhindern.");}).finally(function(){quoteBusy=false;});
+ Promise.all(tasks).then(function(){save();render();quoteStatus("Fertig: "+quoteSuccess+" aktualisiert; "+quoteErrors+" Fehler"+(quoteErrorText.length?" — "+quoteErrorText.slice(0,3).join(" / "):"")+" · "+new Date().toLocaleTimeString("de-DE")+" Uhr");}).finally(function(){quoteBusy=false;});
 }
 $("refreshQuotes").addEventListener("click",refreshQuotes);
 $("now").addEventListener("input",function(){$("now").dataset.manual="1";});
