@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mein Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#eef2f1;--card:#fff;--ink:#12212b;--mute:#5b6b75;--line:#d5dedc;--acc:#0f6b62;--up:#15803d;--down:#b91c1c;--coin:#d98a1f;--stock:#2f5d9e;--gold:#b8941f;--btn:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a1f;--card:#17262d;--ink:#e6eeee;--mute:#93a5ac;--line:#2a3d45;--acc:#4fd1c0;--up:#4ade80;--down:#f87171;--coin:#f0a940;--stock:#6fa0e6;--gold:#e0c050;--btn:#06201c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1a1f;--card:#17262d;--ink:#e6eeee;--mute:#93a5ac;--line:#2a3d45;--acc:#4fd1c0;--up:#4ade80;--down:#f87171;--coin:#f0a940;--stock:#6fa0e6;--gold:#e0c050;--btn:#06201c;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.1rem;font-weight:600;margin:0 0 14px;color:var(--mute)}
+h2{font-size:1rem;margin:28px 0 10px}
+.total{font-size:2.6rem;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.sub{display:flex;gap:18px;flex-wrap:wrap;margin:6px 0 18px;color:var(--mute)}
+.up{color:var(--up)}.down{color:var(--down)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+.donutwrap{display:flex;align-items:center;gap:18px}
+.donut{width:112px;height:112px;border-radius:50%;flex:none;background:var(--line);position:relative}
+.donut::after{content:"";position:absolute;inset:26px;border-radius:50%;background:var(--card)}
+.leg div{display:flex;align-items:center;gap:8px;font-size:.92rem}
+.leg b{width:10px;height:10px;border-radius:2px;flex:none}
+.bars .b{display:grid;grid-template-columns:104px 1fr 48px;gap:8px;align-items:center;font-size:.86rem;margin:5px 0}
+.bars .t{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.bars .t i{display:block;height:100%;background:var(--acc)}
+.bars .p{text-align:right;color:var(--mute)}
+.cn{font-size:.9rem;font-weight:600;margin-bottom:4px}
+.hint{font-size:.9rem;margin:8px 0 0;padding:9px 11px;border-left:3px solid var(--coin);background:var(--bg);border-radius:0 6px 6px 0}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.name{font-weight:600}.tag{font-size:.8rem;color:var(--mute);margin-left:6px}.val{font-weight:600}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:10px;font-size:.9rem;color:var(--mute)}
+label{display:block;font-size:.82rem;color:var(--mute)}
+input,select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px 10px;margin-top:3px}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}
+button{font:inherit;cursor:pointer;border-radius:7px;border:0;padding:11px 14px;background:var(--acc);color:var(--btn);font-weight:600}
+button.ghost{background:none;color:var(--mute);padding:4px 0;font-weight:400;font-size:.88rem;text-decoration:underline}
+.empty{color:var(--mute);padding:14px 0;text-align:center}
+.note{font-size:.82rem;color:var(--mute);margin-top:18px}
+html:root:root:root{--bg:#07130f;--card:#0e1f19;--ink:#e8f5ee;--mute:#86a597;--line:#1f3a2e;--acc:#34d399;--up:#4ade80;--down:#fb7185;--coin:#fbbf24;--stock:#60a5fa;--gold:#e5c158;--btn:#04170f;color-scheme:dark}
+body{background:radial-gradient(900px 420px at 85% -10%,#0f3a2b 0,transparent 60%),var(--bg);background-attachment:fixed}
+.total{color:var(--acc);text-shadow:0 0 28px #34d39955}
+.card{border-radius:14px;background:linear-gradient(160deg,#10261e,#0b1a14);box-shadow:0 6px 20px #0006}
+.tabs,.seg{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px;margin:14px 0}
+.tabs button,.seg button{flex:1;background:none;color:var(--mute);padding:9px 6px;font-size:.9rem;font-weight:500}
+.tabs button.on,.seg button.on{background:var(--acc);color:var(--btn);font-weight:600}
+.tab{display:none}.tab.on{display:block}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;color:var(--mute);font-weight:500;padding:8px 6px;border-bottom:1px solid var(--line)}
+td{padding:10px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+td:nth-child(n+2),th:nth-child(n+2){text-align:right}
+.bars .t i{background:linear-gradient(90deg,#10b981,#6ee7b7);animation:grow .9s ease-out}
+@keyframes grow{from{width:0}}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px}
+#pcard .leg{max-height:150px;overflow:auto}
+textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px 10px;margin:8px 0}
+</style>
+</head>
+<body>
+<main>
+<h1>🌿 Mein Portfolio</h1>
+<div class="total" id="total">0,00 €</div>
+<div class="sub"><span id="invested"></span><span id="pl"></span></div>
+<div class="card" id="performancePanel" style="margin-top:12px;padding:14px">
+ <div class="row"><span style="color:var(--mute)">Marktwert gesamt</span><b id="dashValue">0,00 €</b></div>
+ <div class="row" style="margin-top:5px"><span style="color:var(--mute)">Investiertes Kapital</span><span id="dashInvest">0,00 €</span></div>
+ <div class="row" style="margin-top:5px"><span style="color:var(--mute)">Gesamt Gewinn / Verlust</span><b id="dashGain">0,00 €</b></div>
+ <div class="row" style="margin-top:5px"><span style="color:var(--mute)">Gesamtrendite</span><b id="dashPct">0,00 %</b></div>
+ <div class="row" style="margin-top:5px"><span style="color:var(--mute)">Veränderung zum letzten Tageswert</span><b id="dashDay">–</b></div>
+</div>
+
+<div class="card" id="cloudCard" style="margin:12px 0"><b>☁️ Geräte-Synchronisierung</b><div class="note">Mit derselben E-Mail auf PC, iPad und Handy anmelden.</div><div class="grid"><div class="full"><label>E-Mail</label><input id="cloudEmail" type="email" placeholder="deine@email.de" autocomplete="email"></div><div class="full"><label>Passwort</label><input id="cloudPass" type="password" placeholder="Mindestens 6 Zeichen" autocomplete="current-password"></div><div><button id="cloudLogin">Anmelden</button></div><div><button id="cloudSignup">Registrieren</button></div><div class="full"><button id="cloudLogout" style="display:none">Abmelden</button><div id="cloudStatus" class="note">Nicht angemeldet – Daten sind lokal gespeichert.</div></div></div></div>\n<div class="tabs"><button class="on" data-t="0">📊 Übersicht</button><button data-t="1">💼 Positionen</button><button data-t="2">➕ Neu</button><button data-t="3">🧰 Mehr</button></div>
+<div class="tab on" id="t1">
+<div class="card"><div class="donutwrap"><div class="donut" id="donut"></div><div class="leg" id="leg"></div></div></div>
+
+<div class="card" id="goal"></div>
+<div class="card" id="tb"></div>
+<h2>🎨 Alle Positionen</h2>
+<div class="card" id="pcard"><div class="donutwrap"><div class="donut" id="pdonut"></div><div class="leg" id="pleg"></div></div></div>
+<h2>📅 Vermögensverlauf</h2>
+<div class="card" id="hist"></div>
+<h2>🌍 Anteile am Gesamtportfolio</h2>
+<div class="card bars" id="reg"></div>
+<div class="card bars" id="sec"></div>
+<div id="hints"></div>
+<div class="card" id="target"></div>
+
+<h2>🧩 Je Anlageklasse</h2>
+<div id="classes"></div>
+<h2>🧮 Sparplan-Rechner</h2>
+<div class="card"><div class="grid"><div><label for="sr">Monatliche Rate (€)</label><input id="sr" type="number" inputmode="decimal" min="0" step="any"></div><div><label for="sy">Jahre</label><input id="sy" type="number" inputmode="decimal" min="0" step="1" value="10"></div><div class="full" id="sres"></div></div></div>
+
+</div>
+<div class="tab" id="t2"><h2>💼 Positionen</h2>
+<div class="seg"><button class="on" data-v="cards">▦ Karten</button><button data-v="table">▤ Tabelle</button></div>
+<div class="grid" id="ctl" style="display:none;margin-bottom:10px"><select id="srt"><option value="v">Sortieren: Wert</option><option value="p">Sortieren: Gewinn %</option><option value="n">Sortieren: Name</option></select><select id="flt"><option value="">Alle Klassen</option><option value="stock">Aktien und ETFs</option><option value="gold">Gold</option><option value="coin">Coins</option></select></div>
+<div id="list"></div><div id="tbl"></div></div>
+
+<div class="tab" id="t3"><h2>➕ Position hinzufügen</h2>
+<div class="card"><div class="grid">
+<div class="full"><label for="pre">Vorlage</label><select id="pre"></select></div>
+<div class="full" id="nw"><label for="name">Name oder Symbol</label><input id="name" placeholder="z. B. Ethereum" autocomplete="off"></div>
+<div class="full"><label for="qty">Gesamtmenge (Stück oder Anteile)</label><input id="qty" type="number" inputmode="decimal" step="any" min="0"></div>
+<div><label for="buy">Investierter Betrag (€)</label><input id="buy" type="number" inputmode="decimal" step="any" min="0"></div>
+<div><label for="now">Aktueller Kurs (€) <span id="quoteAddStatus" class="tag">Livekurs optional</span></label><input id="now" type="number" inputmode="decimal" step="any" min="0"><div class="note">Livekurs wird automatisch eingetragen; manuell überschreiben ist jederzeit möglich.</div></div>
+<div class="full"><button id="add">💾 Position speichern</button></div>
+</div></div></div>
+<div class="tab" id="t4">
+<h2>⚠️ Risiko-Ansicht</h2><div class="card bars" id="risk"></div>
+<h2>🗓️ Sparplan- und Dividendenkalender</h2><div class="card" id="cal"></div>
+<h2>👀 Watchlist</h2>
+<div class="card"><div class="grid"><div class="full"><input id="wn" placeholder="Name oder Symbol" autocomplete="off"></div><div><input id="wc" type="number" inputmode="decimal" step="any" min="0" placeholder="Aktueller Kurs (€)"></div><div><input id="wp" type="number" inputmode="decimal" step="any" min="0" placeholder="Wunsch-Kaufkurs (€)"></div><div class="full"><button id="wadd">➕ Zur Watchlist</button></div></div></div>
+<div id="wl"></div>
+<h2>📡 Livekurse</h2><div class="card"><div id="quoteStatus" class="note" style="margin:0">Livekurse werden geladen …</div><div class="note">Coins via CoinGecko in EUR. Aktien/ETFs via Stooq (für USD-Werte Umrechnung über Frankfurter API). Nicht unterstützte Symbole behalten ihren manuellen Kurs.</div><button id="refreshQuotes" style="margin-top:10px">↻ Kurse jetzt aktualisieren</button></div><h2>💾 Sicherung</h2><p class="note">Automatische Speicherung + internes Backup: Jede Änderung wird sofort im Browser doppelt gesichert. Bei fehlendem Hauptspeicher wird das Backup beim Öffnen automatisch verwendet. Für Gerätewechsel zusätzlich Export nutzen.</p>
+<div class="card"><div class="grid"><button id="exp">📤 Exportieren</button><button id="imp">📥 Importieren</button></div><textarea id="io" rows="4" placeholder="Zum Importieren hier den gesicherten Text einfügen"></textarea><div class="note" id="iomsg" style="margin:0">Beim Import wird dein aktueller Stand ersetzt.</div></div>
+</div>
+<p class="note">Livekurse aktualisieren sich alle 3 Minuten; manuelle Kurse bleiben als Fallback. Regionen und Sektoren der ETFs sind gerundete Richtwerte (Stand grob 2025) und weichen von den aktuellen Fondsdaten ab. Daten bleiben nur in diesem Browser gespeichert. Keine Anlageberatung.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+var S=function(a){var o={},k;for(k=0;k<a.length;k+=2)o[a[k]]=a[k+1];return o;};
+var ETF={
+world:{n:"iShares Core MSCI World (Acc)",c:"stock",reg:S(["USA",72,"Europa",14,"Japan",5.5,"Übrige Industrieländer",8.5]),sec:S(["IT",27,"Finanzen",17,"Industrie",11,"Gesundheit",10,"Zykl. Konsum",10,"Kommunikation",8,"Basiskonsum",6,"Energie",3.5,"Rohstoffe",3,"Versorger",2.5,"Immobilien",2])},
+em:{n:"iShares Core MSCI Emerging Markets IMI (Acc)",c:"stock",reg:S(["China",27,"Indien",19,"Taiwan/Südkorea",27,"Übrige Schwellenländer",27]),sec:S(["IT",24,"Finanzen",22,"Zykl. Konsum",12,"Kommunikation",9,"Industrie",7,"Rohstoffe",6,"Basiskonsum",5,"Energie",5,"Gesundheit",4,"Versorger",3,"Immobilien",3])},
+eu:{n:"Amundi Core Stoxx Europe 600 (Acc)",c:"stock",reg:S(["Europa",100]),sec:S(["Finanzen",22,"Industrie",19,"Gesundheit",17,"Basiskonsum",8,"Zykl. Konsum",8,"IT",7,"Energie",5,"Rohstoffe",5,"Versorger",4,"Kommunikation",4,"Immobilien",1])},
+gold:{n:"iShares Physical Gold ETC",c:"gold",reg:S(["Gold",100]),sec:S(["Gold",100])},
+btc:{n:"Bitcoin",c:"coin",reg:S(["Krypto",100]),sec:S(["Krypto: Bitcoin",100])},
+near:{n:"NEAR Protocol",c:"coin",reg:S(["Krypto",100]),sec:S(["Krypto: Smart Contracts",100])},
+tao:{n:"Bittensor (TAO)",c:"coin",reg:S(["Krypto",100]),sec:S(["Krypto: KI",100])},
+render:{n:"Render",c:"coin",reg:S(["Krypto",100]),sec:S(["Krypto: KI",100])},
+fet:{n:"Fetch.ai",c:"coin",reg:S(["Krypto",100]),sec:S(["Krypto: KI",100])},
+aitech:{n:"Solidus Ai Tech",c:"coin",reg:S(["Krypto",100]),sec:S(["Krypto: KI",100])},
+naka:{n:"Nakamoto Games",c:"coin",reg:S(["Krypto",100]),sec:S(["Krypto: Gaming",100])},
+coin:{n:"",c:"coin",reg:S(["Krypto",100]),sec:S(["Krypto",100])},
+aktie:{n:"",c:"stock",reg:S(["Einzelaktien",100]),sec:S(["Einzelaktien",100])}
+};
+var CN={stock:"📈 Aktien und ETFs",gold:"🥇 Gold",coin:"🪙 Coins"},CC={stock:"var(--stock)",gold:"var(--gold)",coin:"var(--coin)"};
+var KEY="portfolio-v1",BACKUP_KEY="portfolio-v1-auto-backup",items=[];
+var SUPABASE_URL="https://nummmjaosbsfjwgbniky.supabase.co";
+var SUPABASE_KEY="sb_publishable_VZaoOVJFoynbo6FMDbMXDw_znqkVEEF";
+var cloudClient=window.supabase?window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY):null;
+var cloudUser=null,cloudReady=false,cloudTimer=null,cloudLoading=false;
+function cloudStatus(t){var el=document.getElementById("cloudStatus");if(el)el.textContent=t;}
+function cloudPayload(){return {items:items,goal:localStorage.getItem("portfolio-goal"),hist:localStorage.getItem("portfolio-hist"),watch:localStorage.getItem("portfolio-watch")};}
+function cloudSchedule(){if(!cloudUser||!cloudReady||cloudLoading)return;clearTimeout(cloudTimer);cloudTimer=setTimeout(cloudPush,700);}
+async function cloudPush(){if(!cloudUser||!cloudReady||cloudLoading)return;try{var data=cloudPayload();var res=await cloudClient.from("portfolio_data").upsert({user_id:cloudUser.id,data:data,updated_at:new Date().toISOString()},{onConflict:"user_id"});if(res.error)throw res.error;cloudStatus("☁️ Synchronisiert · "+new Date().toLocaleTimeString("de-DE"));}catch(e){cloudStatus("Cloud-Speicherung fehlgeschlagen: "+e.message);}}
+async function cloudPull(){if(!cloudUser)return;cloudLoading=true;try{var q=await cloudClient.from("portfolio_data").select("data").eq("user_id",cloudUser.id).maybeSingle();if(q.error)throw q.error;if(q.data&&q.data.data){var d=q.data.data;if(Array.isArray(d.items)){items=d.items;saveLocalOnly();if(d.goal!=null)localStorage.setItem("portfolio-goal",d.goal);if(d.hist!=null)localStorage.setItem("portfolio-hist",d.hist);if(d.watch!=null)localStorage.setItem("portfolio-watch",d.watch);render();cloudStatus("☁️ Cloud-Daten geladen");}else{cloudReady=true;await cloudPush();}}else{cloudReady=true;await cloudPush();}}catch(e){cloudStatus("Cloud-Laden fehlgeschlagen: "+e.message);}finally{cloudLoading=false;cloudReady=true;}}
+function saveLocalOnly(){try{var data=JSON.stringify(items);localStorage.setItem(KEY,data);localStorage.setItem(BACKUP_KEY,data);}catch(e){}}
+async function cloudInit(){if(!cloudClient){cloudStatus("Supabase-Bibliothek nicht geladen (Internet prüfen).");return;}var sess=await cloudClient.auth.getSession();cloudUser=sess.data.session&&sess.data.session.user||null;cloudUi();if(cloudUser)await cloudPull();}
+function cloudUi(){var logged=!!cloudUser;document.getElementById("cloudLogout").style.display=logged?"block":"none";document.getElementById("cloudLogin").style.display=logged?"none":"block";document.getElementById("cloudSignup").style.display=logged?"none":"block";if(logged)cloudStatus("Angemeldet: "+cloudUser.email+" · Synchronisierung wird geladen …");}
+
+try{var r=localStorage.getItem(KEY);if(r)items=JSON.parse(r)||[];else{var b=localStorage.getItem(BACKUP_KEY);if(b)items=JSON.parse(b)||[];}}catch(e){try{var b=localStorage.getItem(BACKUP_KEY);if(b)items=JSON.parse(b)||[];}catch(e2){items=[];}}
+items.forEach(function(p){if(!p.k){p.k=p.type==="coin"?"coin":"aktie";}if(p.inv===undefined)p.inv=p.qty*p.buy;});
+var CM=new Date().getFullYear()*12+new Date().getMonth();
+items.forEach(function(p){if(p.sp>0&&p.last!==undefined&&p.now>0){var m=CM-p.last;if(m>0){p.inv+=p.sp*m;p.qty+=p.sp*m/p.now;p.last=CM;}}});
+save();
+function save(){saveLocalOnly();cloudSchedule();}
+var $=function(i){return document.getElementById(i);};
+var eur=new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR"}),nf=new Intl.NumberFormat("de-DE",{maximumFractionDigits:1});
+var sg=function(n){return (n>0?"+":"")+eur.format(n);},sp=function(n){return (n>0?"+":"")+nf.format(n)+" %";};
+var cls=function(n){return n>0?"up":(n<0?"down":"");};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function bars(obj,total,title){
+var a=Object.keys(obj).map(function(k){return [k,obj[k]];}).filter(function(x){return x[1]>0;}).sort(function(x,y){return y[1]-x[1];});
+if(!a.length||!total)return (title?'<div class="cn">'+title+'</div>':'')+'<div class="empty">Noch keine Daten.</div>';
+return (title?'<div class="cn">'+title+'</div>':'')+a.map(function(x){var p=x[1]/total*100;return '<div class="b"><span>'+esc(x[0])+'</span><span class="t"><i style="width:'+p+'%"></i></span><span class="p">'+nf.format(p)+' %</span></div>';}).join("");
+}
+var pre=$("pre");
+pre.innerHTML=["world","em","eu","gold","btc","near","tao","render","fet","aitech","naka","coin","aktie"].map(function(k){return '<option value="'+k+'">'+(ETF[k].n||(k==="coin"?"Anderer Coin":"Einzelaktie"))+'</option>';}).join("");
+function pv(){$("nw").style.display=ETF[pre.value].n?"none":"block";}
+pre.addEventListener("change",pv);pv();
+var COL={world:"#38bdf8",em:"#fb923c",eu:"#a78bfa",gold:"#facc15",btc:"#f7931a",near:"#34d399",tao:"#f472b6",render:"#ef4444",fet:"#818cf8",aitech:"#22d3ee",naka:"#a3e635"},PAL=["#94a3b8","#f9a8d4","#fcd34d","#5eead4","#c4b5fd","#fdba74"],TOT=0,shown=0;
+function col(k,n){if(COL[k])return COL[k];var h=0;for(var i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))%PAL.length;return PAL[h];}
+function countTo(t){var s=shown,t0=performance.now();function f(n){var k=Math.min(1,(n-t0)/800),e=1-Math.pow(1-k,3);$("total").textContent=eur.format(s+(t-s)*e);if(k<1)requestAnimationFrame(f);else shown=t;}requestAnimationFrame(f);}
+function rows(){var f=$("flt").value,s=$("srt").value;var a=items.filter(function(p){return !f||(ETF[p.k]||ETF.aktie).c===f;});a.sort(function(x,y){var vx=x.qty*x.now,vy=y.qty*y.now;if(s==="n")return x.name.localeCompare(y.name);if(s==="p")return (vy-y.inv)/(y.inv||1)-(vx-x.inv)/(x.inv||1);return vy-vx;});return a;}
+function calc(){var m=parseFloat($("sr").value)||0,y=parseFloat($("sy").value)||0,n=y*12,o="";[4,6,8].forEach(function(r){var i=r/1200,f=Math.pow(1+i,n),fv=TOT*f+m*(f-1)/i;o+='<div class="row" style="margin:5px 0"><span>'+r+' % pro Jahr</span><b>'+eur.format(fv)+'</b></div>';});$("sres").innerHTML=o+'<div class="note" style="margin-top:6px">Eingezahlt wären '+eur.format(TOT+m*n)+'. Nur ein Rechenbeispiel, keine Prognose.</div>';}
+function ls(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function renderMore(tot,sec){
+var rs={},big="",bv=0,mr=0,dv=0,mo=[];
+items.forEach(function(p){var v=p.qty*p.now,d=ETF[p.k]||ETF.aktie,k=d.c==="coin"?"Sehr hoch (Coins)":(p.k==="aktie"?"Hoch (Einzelaktien)":(p.k==="em"?"Erhöht (Schwellenländer)":"Moderat (breite ETFs, Gold)"));rs[k]=(rs[k]||0)+v;if(v>bv){bv=v;big=p.name;}mr+=p.sp||0;dv+=p.qty*(p.dv||0);if(p.sp>0)mo.push(p);});
+$("risk").innerHTML=tot?bars(rs,tot,"Verteilung nach Schwankungsrisiko")+'<div class="hint">Größte Einzelposition: '+esc(big)+' ('+nf.format(bv/tot*100)+' %).'+((sec["Krypto: KI"]||0)>0?' KI-Coins zusammen: '+nf.format(sec["Krypto: KI"]/tot*100)+' %.':'')+'</div>':'<div class="empty">Noch keine Positionen.</div>';
+var c="";if(mr>0){c+='<div class="row" style="margin-bottom:6px"><b>Sparpläne pro Monat</b><b>'+eur.format(mr)+'</b></div>'+mo.map(function(p){return '<div class="row" style="font-size:.9rem"><span><b class="dot" style="background:'+col(p.k,p.name)+'"></b>'+esc(p.name)+'</span><span>'+eur.format(p.sp)+'</span></div>';}).join("");c+='<div class="cn" style="margin-top:12px">Nächste Monate (kumuliert)</div>';for(var i=1;i<=6;i++){var dt=new Date(new Date().getFullYear(),new Date().getMonth()+i,1);c+='<div class="row" style="font-size:.9rem;margin:3px 0"><span>'+dt.toLocaleDateString("de-DE",{month:"long",year:"numeric"})+'</span><span>+'+eur.format(mr*i)+'</span></div>';}}else{c+='<div class="empty">Trage bei einer Position einen Sparplan (€/Monat) ein, dann erscheint er hier.</div>';}
+if(dv>0)c+='<div class="hint">Erwartete Dividenden: ca. '+eur.format(dv)+' pro Jahr ('+eur.format(dv/12)+' pro Monat).</div>';else c+='<div class="note">Acc-ETFs und Coins zahlen keine Dividende aus. Für Aktien mit Dividende trägst du in der Positionskarte die Dividende pro Stück und Jahr ein.</div>';
+$("cal").innerHTML=c;
+var W=[];try{W=JSON.parse(ls("portfolio-watch"))||[];}catch(e){}
+$("wl").innerHTML=W.length?W.map(function(w,i){var d=w.t>0&&w.c>0?(w.c-w.t)/w.t*100:null;return '<div class="card"><div class="row"><span class="name">'+esc(w.n)+'</span><span>'+(w.c?eur.format(w.c):"")+'</span></div><div class="row" style="font-size:.9rem;color:var(--mute)"><span>Wunschkurs '+(w.t?eur.format(w.t):"-")+'</span><span>'+(d===null?"":(d<=0?'<b class="up">Wunschkurs erreicht</b>':nf.format(d)+' % darüber'))+'</span></div><button class="ghost" data-w="'+i+'">Entfernen</button></div>';}).join(""):'<div class="empty">Noch nichts auf der Watchlist.</div>';
+}
+function render(){
+var tot=0,inv=0,cv={stock:0,gold:0,coin:0},reg={},sec={},html="",byC={stock:{},gold:{},coin:{}},ev={world:0,em:0,eu:0};
+items.forEach(function(p,i){
+var d=ETF[p.k]||ETF.aktie,v=p.qty*p.now,c=p.inv,g=v-c;
+tot+=v;inv+=c;cv[d.c]+=v;byC[d.c][p.name]=(byC[d.c][p.name]||0)+v;
+if(ev[p.k]!==undefined)ev[p.k]+=v;
+Object.keys(d.reg).forEach(function(k){reg[k]=(reg[k]||0)+v*d.reg[k]/100;});
+Object.keys(d.sec).forEach(function(k){sec[k]=(sec[k]||0)+v*d.sec[k]/100;});
+html+='<div class="card"><div class="row"><span><span class="name">'+esc(p.name)+'</span><span class="tag">'+CN[d.c]+'</span><span class="tag" style="margin-left:5px;color:'+(p.quoteSource==="live"?"#34d399":"var(--mute)")+';border-color:'+(p.quoteSource==="live"?"#34d399":"var(--line)")+'">'+(p.quoteSource==="live"?"● LIVE":"○ MANUELL")+'</span></span><span class="val">'+eur.format(v)+'</span></div>'+
+'<div class="row"><span style="color:var(--mute);font-size:.9rem">'+nf.format(p.qty)+' Stück, Ø '+eur.format(p.qty?p.inv/p.qty:0)+'</span><span class="'+cls(g)+'">'+sg(g)+' ('+sp(c?g/c*100:0)+')</span></div>'+
+'<div class="meta"><label>Investiert (€)<input type="number" inputmode="decimal" step="any" min="0" value="'+p.inv+'" data-i="'+i+'" data-f="inv"></label><label>Aktueller Kurs (€)<input type="number" inputmode="decimal" step="any" min="0" value="'+p.now+'" data-i="'+i+'" data-f="now"></label><label>Sparplan (€/Monat)<input type="number" inputmode="decimal" step="any" min="0" value="'+(p.sp||0)+'" data-i="'+i+'" data-f="sp"></label><label>Dividende/Jahr pro Stück (€)<input type="number" inputmode="decimal" step="any" min="0" value="'+(p.dv||0)+'" data-i="'+i+'" data-f="dv"></label></div>'+
+'<div style="margin-top:8px"><button class="ghost" data-del="'+i+'">Position löschen</button></div></div>';
+});
+$("list").innerHTML=html||'<div class="empty">Noch keine Positionen. Füge unten deine erste hinzu.</div>';
+$("tbl").innerHTML=items.length?'<div class="tw"><table><tr><th>Position</th><th>Wert</th><th>Investiert</th><th>G/V</th></tr>'+rows().map(function(p){var v=p.qty*p.now,x=v-p.inv;return '<tr><td><b class="dot" style="background:'+col(p.k,p.name)+'"></b>'+esc(p.name)+'</td><td>'+eur.format(v)+'</td><td>'+eur.format(p.inv)+'</td><td class="'+cls(x)+'">'+sp(p.inv?x/p.inv*100:0)+'</td></tr>';}).join("")+'</table></div>':"";
+var g=tot-inv;
+countTo(tot);
+$("invested").textContent="💰 Investiert: "+eur.format(inv);
+$("dashValue").textContent=eur.format(tot);
+$("dashInvest").textContent=eur.format(inv);
+$("dashGain").textContent=sg(g);
+$("dashGain").className=cls(g);
+$("dashPct").textContent=sp(inv?g/inv*100:0);
+$("dashPct").className=cls(g);
+$("pl").innerHTML='<span class="'+cls(g)+'">'+sg(g)+' ('+sp(inv?g/inv*100:0)+')</span>';
+var st=0,stops=[],lg="";
+["stock","gold","coin"].forEach(function(k){var p=tot?cv[k]/tot*100:0;stops.push(CC[k]+" "+st+"% "+(st+p)+"%");st+=p;lg+='<div><b style="background:'+CC[k]+'"></b>'+CN[k]+' '+nf.format(p)+' %</div>';});
+$("donut").style.background=tot?"conic-gradient("+stops.join(",")+")":"var(--line)";
+$("leg").innerHTML=lg;
+$("reg").innerHTML=bars(reg,tot,"Nach Region");
+$("sec").innerHTML=bars(sec,tot,"Nach Sektor");
+var h="";
+if(tot){
+var mr=Object.keys(reg).sort(function(a,b){return reg[b]-reg[a];})[0];
+if(reg[mr]/tot>.5)h+='<p class="hint">'+esc(mr)+' macht rund '+nf.format(reg[mr]/tot*100)+' % deines Portfolios aus. Das ist eine starke Konzentration auf eine Region.</p>';
+if((sec.IT||0)/tot>.22)h+='<p class="hint">Der IT-Sektor hat etwa '+nf.format(sec.IT/tot*100)+' % Gewicht. Das ist deutlich, weil mehrere deiner Fonds Tech-lastig sind.</p>';
+if(cv.coin/tot>.1)h+='<p class="hint">Coins machen '+nf.format(cv.coin/tot*100)+' % aus. Krypto schwankt stark, das erhöht das Gesamtrisiko.</p>';
+}
+TOT=tot;
+var ps=0,pst=[],pl="";items.forEach(function(p){var v=p.qty*p.now,c=col(p.k,p.name),q=tot?v/tot*100:0;if(v>0){pst.push(c+" "+ps+"% "+(ps+q)+"%");ps+=q;pl+='<div><b style="background:'+c+'"></b>'+esc(p.name)+' '+nf.format(q)+' %</div>';}});
+$("pdonut").style.background=pst.length?"conic-gradient("+pst.join(",")+")":"var(--line)";$("pleg").innerHTML=pl;
+var rk=items.filter(function(p){return p.inv>0;}).map(function(p){return {n:p.name,x:(p.qty*p.now-p.inv)/p.inv*100};}).sort(function(a,b){return b.x-a.x;});
+$("tb").innerHTML=rk.length?'<div class="row"><span>🏆 Beste</span><span>'+esc(rk[0].n)+' <b class="'+cls(rk[0].x)+'">'+sp(rk[0].x)+'</b></span></div><div class="row" style="margin-top:6px"><span>📉 Schwächste</span><span>'+esc(rk[rk.length-1].n)+' <b class="'+cls(rk[rk.length-1].x)+'">'+sp(rk[rk.length-1].x)+'</b></span></div>':'<div class="empty">Hier erscheinen deine beste und schwächste Position.</div>';
+var gl=0;try{gl=parseFloat(localStorage.getItem("portfolio-goal"))||0;}catch(e){}
+$("goal").innerHTML='<div class="row"><span class="cn">🎯 Zielvermögen (€)</span><input id="gin" type="number" inputmode="decimal" min="0" placeholder="z. B. 10000" value="'+(gl||"")+'" style="width:130px;margin:0"></div>'+(gl?'<div style="height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin-top:10px"><i style="display:block;height:100%;width:'+Math.min(100,tot/gl*100)+'%;background:linear-gradient(90deg,#10b981,#6ee7b7);animation:grow 1s"></i></div><div class="sub" style="margin:6px 0 0">'+nf.format(tot/gl*100)+' % von '+eur.format(gl)+'</div>':'');
+var H=[];try{H=JSON.parse(localStorage.getItem("portfolio-hist"))||[];}catch(e){}
+if(tot>0){var td=new Date().toISOString().slice(0,10);if(H.length&&H[H.length-1].d===td)H[H.length-1].v=tot;else H.push({d:td,v:tot});try{localStorage.setItem("portfolio-hist",JSON.stringify(H));}catch(e){}}
+var dayDelta=null;if(H.length>=2){dayDelta=H[H.length-1].v-H[H.length-2].v;}
+$("dashDay").textContent=dayDelta===null?"Noch kein Vergleich":sg(dayDelta);
+$("dashDay").className=dayDelta===null?"":cls(dayDelta);
+if(H.length<2){$("hist").innerHTML='<div class="empty">Der Verlauf füllt sich, sobald du die Seite an mehreren Tagen öffnest und deine Kurse aktualisierst.</div>';}else{var hv=H.map(function(x){return x.v;}),mn=Math.min.apply(null,hv),mx=Math.max.apply(null,hv),rg=(mx-mn)||1,pts=H.map(function(x,i){return (i/(H.length-1)*300)+","+(70-(x.v-mn)/rg*60);}).join(" ");$("hist").innerHTML='<svg viewBox="0 0 300 80" width="100%" preserveAspectRatio="none"><polyline fill="none" stroke="#34d399" stroke-width="2" points="'+pts+'"/></svg><div class="row" style="font-size:.82rem;color:var(--mute)"><span>'+H[0].d+'</span><span>'+H[H.length-1].d+'</span></div>';}
+if(!$("sr").value){var sm=0;items.forEach(function(p){sm+=p.sp||0;});if(sm)$("sr").value=sm;}
+calc();renderMore(tot,sec);
+$("hints").innerHTML=h;
+var es=ev.world+ev.em+ev.eu;
+$("target").innerHTML=es?'<div class="cn">Dein 50-30-20-Ziel (nur ETFs)</div>'+[["world","MSCI World",50],["em","Emerging Markets",30],["eu","Stoxx Europe 600",20]].map(function(x){var a=ev[x[0]]/es*100,d=a-x[2];return '<div class="row" style="font-size:.92rem;margin:4px 0"><span>'+x[1]+'</span><span>'+nf.format(a)+' % <span style="color:var(--mute)">(Ziel '+x[2]+' %, </span><span class="'+(Math.abs(d)>3?"down":"up")+'">'+(d>0?"+":"")+nf.format(d)+'</span><span style="color:var(--mute)">)</span></span></div>';}).join(""):'<div class="cn">Dein 50-30-20-Ziel</div><div class="empty">Trage deine drei ETFs ein, dann siehst du die Abweichung.</div>';
+if(es){var W={world:.5,em:.3,eu:.2},T=0;Object.keys(W).forEach(function(k){T=Math.max(T,ev[k]/W[k]);});$("target").innerHTML+='<div class="hint">Um dein Verhältnis nur durch Nachkaufen herzustellen: '+[["world","MSCI World"],["em","Emerging Markets"],["eu","Stoxx Europe 600"]].map(function(x){return x[1]+' '+eur.format(Math.max(0,T*W[x[0]]-ev[x[0]]));}).join(", ")+'.</div>';}
+var ch="";
+["stock","gold","coin"].forEach(function(k){if(cv[k]>0)ch+='<div class="card bars">'+bars(byC[k],cv[k],CN[k])+'</div>';});
+$("classes").innerHTML=ch||'<div class="empty">Sobald du Positionen hast, erscheinen hier Diagramme je Klasse.</div>';
+}
+$("list").addEventListener("change",function(e){var t=e.target;if(t.dataset&&t.dataset.f){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0){var it=items[+t.dataset.i];it[t.dataset.f]=v;if(t.dataset.f==="now"){it.quoteSource="manual";delete it.quoteAt;}if(t.dataset.f==="sp")it.last=CM;save();}render();}});
+$("list").addEventListener("click",function(e){var d=e.target.dataset&&e.target.dataset.del;if(d!==undefined&&d!==""){items.splice(+d,1);save();render();}});
+$("add").addEventListener("click",function(){
+var k=pre.value,n=ETF[k].n||$("name").value.trim(),q=parseFloat($("qty").value),b=parseFloat($("buy").value),c=parseFloat($("now").value);
+if(!n||isNaN(q)||isNaN(b)){alert("Bitte Name, Menge und investierten Betrag eintragen.");return;}
+if(isNaN(c))c=q?b/q:0;
+items.push({k:k,name:n,qty:q,inv:b,buy:q?b/q:0,now:c});save();
+["name","qty","buy","now"].forEach(function(i){$(i).value="";});render();
+});
+function tab(n){["t1","t2","t3","t4"].forEach(function(id,i){$(id).className="tab"+(i===n?" on":"");});document.querySelectorAll(".tabs button").forEach(function(b,i){b.className=i===n?"on":"";});window.scrollTo(0,0);}
+document.querySelector(".tabs").addEventListener("click",function(e){var n=e.target.dataset&&e.target.dataset.t;if(n!==undefined)tab(+n);});
+document.querySelector(".seg").addEventListener("click",function(e){var v=e.target.dataset&&e.target.dataset.v;if(!v)return;$("list").style.display=v==="cards"?"block":"none";$("ctl").style.display=v==="table"?"grid":"none";$("tbl").style.display=v==="table"?"block":"none";document.querySelectorAll(".seg button").forEach(function(b){b.className=b.dataset.v===v?"on":"";});});
+$("srt").addEventListener("change",render);$("flt").addEventListener("change",render);
+$("sr").addEventListener("input",calc);$("sy").addEventListener("input",calc);
+$("goal").addEventListener("change",function(e){if(e.target.id==="gin"){try{localStorage.setItem("portfolio-goal",e.target.value);}catch(x){}render();}});
+$("wadd").addEventListener("click",function(){var n=$("wn").value.trim();if(!n)return;var W=[];try{W=JSON.parse(ls("portfolio-watch"))||[];}catch(e){}W.push({n:n,c:parseFloat($("wc").value)||0,t:parseFloat($("wp").value)||0});try{localStorage.setItem("portfolio-watch",JSON.stringify(W));}catch(e){}["wn","wc","wp"].forEach(function(i){$(i).value="";});render();});
+$("wl").addEventListener("click",function(e){var i=e.target.dataset&&e.target.dataset.w;if(i===undefined)return;var W=[];try{W=JSON.parse(ls("portfolio-watch"))||[];}catch(x){}W.splice(+i,1);try{localStorage.setItem("portfolio-watch",JSON.stringify(W));}catch(x){}render();});
+$("exp").addEventListener("click",function(){var o={items:items,goal:ls("portfolio-goal"),hist:ls("portfolio-hist"),watch:ls("portfolio-watch")};$("io").value=JSON.stringify(o);$("io").select();try{navigator.clipboard.writeText($("io").value);}catch(e){}$("iomsg").textContent="Der gesicherte Text steht im Feld. Kopiere ihn und bewahre ihn sicher auf.";});
+$("imp").addEventListener("click",function(){try{var o=JSON.parse($("io").value);if(!o||!Array.isArray(o.items))throw 1;items=o.items;save();[["portfolio-goal",o.goal],["portfolio-hist",o.hist],["portfolio-watch",o.watch]].forEach(function(x){try{if(x[1]!==null&&x[1]!==undefined)localStorage.setItem(x[0],x[1]);}catch(e){}});$("iomsg").textContent="Import erfolgreich.";render();}catch(e){$("iomsg").textContent="Das hat nicht geklappt. Bitte den kompletten Text einfügen.";}});
+$("tbl").style.display="none";
+
+// ===== Livekurse: CoinGecko + Stooq/Frankfurter =====
+var QUOTE_INTERVAL=180000,quoteTimer=null,quoteBusy=false;
+var COIN_IDS={btc:"bitcoin",near:"near",tao:"bittensor",render:"render-token",fet:"fetch-ai",aitech:"solidus-aitech",naka:"nakamoto-games"},coinLookupCache={};
+// Stooq-Symbole; EUNL.DE = Xetra-Notierung in EUR (MSCI World)
+var STOCK_SYMBOLS={
+ // ETFs (Stooq-Symbol; EUR/GBP/USD wird unten automatisch umgerechnet)
+ "iShares Core MSCI World (Acc)":"eunl.de","MSCI World":"eunl.de","MSCI World ETF":"eunl.de","IWDA":"iwda.uk","EUNL":"eunl.de",
+ "iShares Core MSCI Emerging Markets IMI (Acc)":"eimi.uk","iShares Core MSCI EM IMI (Acc)":"eimi.uk","MSCI Emerging Markets":"eimi.uk","Emerging Markets":"eimi.uk","EIMI":"eimi.uk",
+ "Amundi Core Stoxx Europe 600 (Acc)":"c6e.de","Stoxx Europe 600":"c6e.de","Europe 600":"c6e.de","C6E":"c6e.de",
+ "S&P 500":"spyl.us","S&P 500 ETF":"spyl.us","Vanguard S&P 500":"voo.us","VOO":"voo.us","SPY":"spy.us","iShares Core S&P 500":"ivv.us",
+ "Nasdaq 100":"qqq.us","NASDAQ":"qqq.us","QQQ":"qqq.us","iShares Nasdaq 100":"cndx.uk",
+ "DAX":"^dax","DAX ETF":"^dax","MDAX":"^mdax","Dow Jones":"^dji","Russell 2000":"^rut",
+ "FTSE 100":"^ftse","Nikkei 225":"^nkx","Euro Stoxx 50":"^stoxx50e",
+ "iShares Physical Gold ETC":"sgln.uk","Gold ETC":"sgln.uk","Gold":"xauusd",
+ // Einzelaktien (US-Ticker)
+ "Apple":"aapl.us","Apple Inc.":"aapl.us","AAPL":"aapl.us","Microsoft":"msft.us","Microsoft Corporation":"msft.us","MSFT":"msft.us",
+ "Nvidia":"nvda.us","NVIDIA":"nvda.us","NVDA":"nvda.us","Amazon":"amzn.us","AMZN":"amzn.us","Alphabet":"googl.us","Google":"googl.us","GOOGL":"googl.us",
+ "Meta":"meta.us","META":"meta.us","Tesla":"tsla.us","TSLA":"tsla.us","Berkshire Hathaway":"brk-b.us","JPMorgan":"jpm.us","JPM":"jpm.us",
+ "Broadcom":"avgo.us","AMD":"amd.us","Intel":"intc.us","Coca-Cola":"ko.us","Walmart":"wmt.us","Palantir":"pltr.us"
+};
+function quoteStatus(t){$("quoteStatus").textContent=t;}
+function getJson(url){return fetch(url).then(function(r){if(!r.ok)throw Error("HTTP "+r.status);return r.json();});}
+function coinPriceMap(ids){if(!ids.length)return Promise.resolve({});return getJson("https://api.coingecko.com/api/v3/simple/price?ids="+encodeURIComponent(ids.join(","))+"&vs_currencies=eur");}
+function stockPrice(symbol){
+ return fetch("https://stooq.com/q/l/?s="+encodeURIComponent(symbol)+"&f=sd2t2ohlcv&h&e=csv")
+ .then(function(r){if(!r.ok)throw Error("Stooq HTTP "+r.status);return r.text();})
+ .then(function(txt){var a=txt.trim().split(/\r?\n/);if(a.length<2)throw Error("kein Kurs");var v=parseFloat(a[1].split(",")[6]);if(!(v>0))throw Error("kein Kurs");return v;});
+}
+function eurRate(from){if(from==="EUR")return Promise.resolve(1);return getJson("https://api.frankfurter.app/latest?from="+from+"&to=EUR").then(function(d){return d.rates.EUR;});}
+function stockSymbol(name){
+ if(STOCK_SYMBOLS[name])return STOCK_SYMBOLS[name];
+ var n=(name||"").trim().toLowerCase();
+ if(/^[a-z]{1,6}$/.test(n))return n+".us";
+ if(/^[a-z0-9.-]{2,15}$/.test(n))return n;
+ return "";
+}
+function applyQuote(p,v){if(!(v>0&&isFinite(v)))return;p.now=v;p.quoteAt=Date.now();p.quoteSource="live";}
+// Beliebige weitere Coins: CoinGecko anhand Name/Symbol suchen und Ergebnis zwischenspeichern.
+function resolveCoinId(p){var known=COIN_IDS[p.k];if(known)return Promise.resolve(known);var key=(p.name||"").trim().toLowerCase();if(!key)return Promise.resolve(null);if(coinLookupCache[key])return Promise.resolve(coinLookupCache[key]);return getJson("https://api.coingecko.com/api/v3/search?query="+encodeURIComponent(p.name)).then(function(d){var a=d.coins||[],hit=a.find(function(x){return (x.name||"").toLowerCase()===key;})||a.find(function(x){return (x.symbol||"").toLowerCase()===key;})||a[0];if(hit){coinLookupCache[key]=hit.id;return hit.id;}return null;});}
+function genericCoinQuotes(coins){return Promise.all(coins.map(function(p){return resolveCoinId(p).then(function(id){if(!id)return;return coinPriceMap([id]).then(function(d){if(d[id]&&d[id].eur)applyQuote(p,d[id].eur);});}).catch(function(e){console.warn("Coin lookup "+p.name,e);});}));}
+function refreshQuotes(){
+ if(quoteBusy)return;quoteBusy=true;quoteStatus("Livekurse werden aktualisiert …");
+ var coins=items.filter(function(p){return (ETF[p.k]||{}).c==="coin";});
+ var stocks=items.filter(function(p){return ((ETF[p.k]||{}).c==="stock"||p.k==="aktie");});
+ var tasks=[
+  genericCoinQuotes(coins).catch(function(e){console.warn("CoinGecko",e);}),
+  Promise.all([eurRate("USD"),eurRate("GBP")]).then(function(rates){var fx={USD:rates[0],GBP:rates[1]};return Promise.all(stocks.map(function(p){var sym=stockSymbol(p.name);if(!sym)return;var currency=/\.us$/.test(sym)?"USD":/\.uk$/.test(sym)?"GBP":"EUR";return stockPrice(sym).then(function(v){v*=fx[currency]||1;applyQuote(p,v);}).catch(function(e){console.warn("Stooq "+sym,e);});}));}).catch(function(e){console.warn("Stooq/FX",e);})
+ ];
+ Promise.all(tasks).then(function(){save();render();quoteStatus("Letzter Aktualisierungsversuch: "+new Date().toLocaleTimeString("de-DE")+" Uhr. Nicht verfügbare Symbole bleiben unverändert; API-Limits oder Browser-CORS können einzelne Abrufe verhindern.");}).finally(function(){quoteBusy=false;});
+}
+$("refreshQuotes").addEventListener("click",refreshQuotes);
+$("now").addEventListener("input",function(){$("now").dataset.manual="1";});
+$("pre").addEventListener("change",function(){var id=COIN_IDS[pre.value];$("now").dataset.manual="";if(id)coinPriceMap([id]).then(function(d){if(pre.value===Object.keys(COIN_IDS).filter(function(k){return COIN_IDS[k]===id;})[0]&&!$("now").dataset.manual){var x=d[id];if(x&&x.eur)$("now").value=x.eur;}}).catch(function(){});});
+var quoteTimer=setInterval(refreshQuotes,180000);
+
+document.getElementById("cloudSignup").addEventListener("click",async function(){var e=document.getElementById("cloudEmail").value.trim(),p=document.getElementById("cloudPass").value;if(!e||p.length<6){cloudStatus("Bitte gültige E-Mail und Passwort (mind. 6 Zeichen) eingeben.");return;}if(!cloudClient){cloudStatus("Supabase-Verbindung fehlt. Bitte Internet prüfen und Seite neu laden.");return;}cloudStatus("Registrierung wird gesendet …");try{var r=await cloudClient.auth.signUp({email:e,password:p});if(r.error){cloudStatus("Registrierungsfehler: "+r.error.message);return;}if(r.data.session){cloudUser=r.data.user;cloudUi();cloudStatus("Registrierung erfolgreich – du bist angemeldet.");await cloudPull();}else{cloudStatus("Registrierung angelegt. Bitte Bestätigungslink in deiner E-Mail öffnen und danach anmelden.");}}catch(err){cloudStatus("Registrierung fehlgeschlagen: "+(err&&err.message?err.message:"Verbindungsfehler"));}});
+document.getElementById("cloudLogin").addEventListener("click",async function(){if(!cloudClient){cloudStatus("Supabase nicht geladen. Internet prüfen und Seite neu laden.");return;}cloudStatus("Anmeldung wird geprüft …");try{var r=await cloudClient.auth.signInWithPassword({email:document.getElementById("cloudEmail").value.trim(),password:document.getElementById("cloudPass").value});if(r.error){cloudStatus("Login fehlgeschlagen: "+r.error.message);return;}cloudUser=r.data.user;cloudUi();await cloudPull();}catch(err){cloudStatus("Login fehlgeschlagen: "+err.message);}});
+document.getElementById("cloudLogout").addEventListener("click",async function(){await cloudClient.auth.signOut();cloudUser=null;cloudReady=false;cloudUi();cloudStatus("Abgemeldet · lokale Daten bleiben vorhanden.");});
+cloudInit();
+render();refreshQuotes();
+})();
+</script>
+</body>
+</html>
